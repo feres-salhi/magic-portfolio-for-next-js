@@ -1,0 +1,24 @@
+---
+title: "Sentinel: An AI-First Cybersecurity Platform (In Progress)"
+publishedAt: "2026-08-15"
+summary: "A cybersecurity platform I'm building from scratch: it watches network and web traffic, uses machine-learning models to catch attacks in real time, stores alerts in a SQL database, and adds an AI copilot that explains incidents in plain language. Currently in active development."
+tag: "AI Security"
+---
+
+## What it is
+
+Sentinel is an AI-first intrusion-detection platform I'm building to learn AI and security deeply, end to end. The idea: watch network and web traffic, use several machine-learning models to catch attacks as they happen, store every alert in a PostgreSQL database an analyst can query with SQL, and add an AI copilot that explains each incident in plain language.
+
+I'm building it from scratch and installing each tool only when I reach it, so I understand every part rather than gluing pieces together.
+
+## The plan
+
+- **Network intrusion detection** — a supervised ML model that classifies network traffic as normal or attack.
+- **Web-attack detection** — a model that flags malicious payloads like SQL injection and XSS.
+- **Anomaly detection** — an unsupervised model to catch unknown attacks by spotting deviations from "normal".
+- **SQL alert store** — every alert written to PostgreSQL, so incidents can be investigated with real SQL queries.
+- **AI copilot** — an LLM that explains alerts, maps them to MITRE ATT&CK, and can turn plain-English questions into SQL.
+
+## Status
+
+This is a work in progress and my current main project. I'm building it in phases — starting with the isolated lab, network capture, and a first ML detection model — with each phase producing something that actually works before moving on. I'll keep this page updated as it grows.
