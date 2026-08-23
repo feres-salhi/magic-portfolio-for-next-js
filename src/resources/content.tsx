@@ -14,7 +14,7 @@ const person: Person = {
 };
 
 const newsletter: Newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: <>My weekly newsletter about creativity and engineering</>,
 };
@@ -67,16 +67,16 @@ const about: About = {
   path: "/about",
   label: "About",
   title: `About – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  description: `Meet ${person.name}, ${person.role} based in Darmstadt, Germany`,
   tableOfContent: {
     display: true,
     subItems: false,
   },
   avatar: {
-    display: true,
+    display: false,
   },
   calendar: {
-    display: true,
+    display: false,
     link: "https://cal.com",
   },
   intro: {
@@ -84,131 +84,77 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        {person.firstName} is a {person.location.split("/")[1]?.replace("_", " ")}-based {person.role.toLowerCase()} with a passion for transforming complex challenges
-        into simple, elegant design solutions. Their work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        I'm a computer science student at TU Darmstadt, focused on AI and AI security.
+        I like taking on hard problems, probing how systems break, and building things
+        that actually run. Right now I'm learning mostly by building — small AI and
+        security projects I can understand end to end.
       </>
     ),
   },
   work: {
-    display: true, // set to false to hide this section
+    display: false,
     title: "Work Experience",
-    experiences: [
-      {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
-        achievements: [
-          <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
-          </>,
-          <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
-          </>,
-        ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
-      {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
-        achievements: [
-          <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
-          </>,
-          <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
-          </>,
-        ],
-        images: [],
-      },
-    ],
+    experiences: [],
   },
   studies: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Studies",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "Technische Universität Darmstadt",
+        description: (
+          <>Computer Science, 2025–2028. Two semesters in — working through Java, data structures, and the theoretical foundations of CS.</>
+        ),
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "INSAT — Institut National des Sciences Appliquées et de Technologie",
+        description: (
+          <>2023–2024. A demanding année préparatoire (MPI): algorithms, data structures, C, and heavy math and physics theory.</>
+        ),
+      },
+      {
+        name: "The Cybersecurity Threat Landscape — LinkedIn Learning",
+        description: (
+          <>Certificate, Nov 2024. Cybersecurity fundamentals and threat & vulnerability management.</>
+        ),
       },
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Technical skills",
     skills: [
       {
-        title: "Figma",
+        title: "Programming",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>Python (since high school), Java and C through university. Comfortable reading and writing real code.</>
         ),
-        tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        tags: [],
+        images: [],
       },
       {
-        title: "Next.js",
+        title: "Data structures & algorithms",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>Built up through INSAT's prep year and two semesters at TU Darmstadt.</>
         ),
-        tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        tags: [],
+        images: [],
+      },
+      {
+        title: "Machine learning (learning)",
+        description: (
+          <>The basics, applied hands-on — currently using ML in my Sentinel project.</>
+        ),
+        tags: [],
+        images: [],
+      },
+      {
+        title: "Security (learning)",
+        description: (
+          <>Basic security tools and hands-on lab work, including my AI Jailbreak Lab.</>
+        ),
+        tags: [],
+        images: [],
       },
     ],
   },
