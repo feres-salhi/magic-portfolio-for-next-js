@@ -47,14 +47,18 @@ const home: Home = {
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
   headline: <>I work on AI and AI security</>,
-  featured: {
-    display: false,
+   featured: {
+    display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Featured work</strong>
+        <strong className="ml-4">AI Jailbreak Lab</strong>{" "}
+        <Line background="brand-alpha-strong" vert height="20" />
+        <Text marginRight="4" onBackground="brand-medium">
+          Featured project
+        </Text>
       </Row>
     ),
-    href: "/work",
+    href: "/work/ai-jailbreak-lab",
   },
   subline: (
     <>
