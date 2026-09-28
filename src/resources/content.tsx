@@ -77,7 +77,7 @@ const about: About = {
     subItems: false,
   },
   avatar: {
-    display: false,
+    display: true,
   },
   calendar: {
     display: false,
