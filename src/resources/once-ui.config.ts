@@ -12,7 +12,7 @@ import {
   StyleConfig,
 } from "@/types";
 import { home, person, social } from "./content";
-const baseURL: string = "https://magic-portfolio-for-next-js-one-fawn.vercel.app";
+const baseURL: string = "https://faressalhi.com";
 
 const routes: RoutesConfig = {
   "/": true,
