@@ -5,7 +5,7 @@ const person: Person = {
   firstName: "Fares",
   lastName: "Salhi",
   name: `Fares Salhi`,
-  role: "Computer Science Student",
+  role: "Computer Science Student · AI Security",
   avatar: "/images/avatar.jpg",
   email: "feressalhi425@gmail.com",
   location: "Europe/Berlin",
@@ -45,20 +45,20 @@ const home: Home = {
   image: "/images/og/home.jpg",
   label: "Home",
   title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
+  description: `Portfolio of ${person.name}, computer science student at TU Darmstadt focused on AI security`,
   headline: <>I work on AI and AI security</>,
    featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">AI Jailbreak Lab</strong>{" "}
+        <strong className="ml-4">Mini SOC: Elastic SIEM + AI Triage</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
           Featured project
         </Text>
       </Row>
     ),
-    href: "/work/ai-jailbreak-lab",
+    href: "/work/elastic-siem-ai-soc-automation",
   },
   subline: (
     <>
@@ -89,9 +89,9 @@ const about: About = {
     description: (
       <>
         I'm a computer science student at TU Darmstadt, focused on AI and AI security.
-        I like taking on hard problems, probing how systems break, and building things
-        that actually run. Right now I'm learning mostly by building — small AI and
-        security projects I can understand end to end.
+        I learn by building: I set up hands-on security labs in my own accounts, test how
+        AI systems and infrastructure behave under attack, and document every step,
+        including what went wrong and what I would improve.
       </>
     ),
   },
@@ -107,7 +107,7 @@ const about: About = {
       {
         name: "Technische Universität Darmstadt",
         description: (
-          <>Computer Science, 2025–2028. Two semesters in — working through Java, data structures, and the theoretical foundations of CS.</>
+          <>B.Sc. Computer Science, since 2025 (expected 2028). Now in my third semester: programming in Java, algorithms and data structures, logic and the theoretical foundations of CS.</>
         ),
       },
       {
@@ -145,17 +145,17 @@ const about: About = {
         images: [],
       },
       {
-        title: "Machine learning (learning)",
+        title: "AI security",
         description: (
-          <>The basics, applied hands-on — currently using ML in my Sentinel project.</>
+          <>Prompt injection, jailbreak testing and AI agent permission testing, from my AI Jailbreak Lab and AI Agent Permission Audit.</>
         ),
         tags: [],
         images: [],
       },
       {
-        title: "Security (learning)",
+        title: "Security operations (learning)",
         description: (
-          <>Basic security tools and hands-on lab work, including my AI Jailbreak Lab.</>
+          <>Elastic Security (SIEM/EDR), KQL detection rules, MITRE ATT&amp;CK mapping and Tines automation, built hands-on in my Mini SOC project on AWS.</>
         ),
         tags: [],
         images: [],
@@ -177,7 +177,7 @@ const work: Work = {
   path: "/work",
   label: "Work",
   title: `Projects – ${person.name}`,
-  description: `Design and dev projects by ${person.name}`,
+  description: `Security and AI security projects by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes
 };
