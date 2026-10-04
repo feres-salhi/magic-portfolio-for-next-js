@@ -1,0 +1,52 @@
+---
+title: "AgentWarden: Keeping an AI Agent Under Control"
+publishedAt: "2026-10-04"
+summary: "A small, working version of NVIDIA's Open Agent Safety Platform: an AI agent in a Docker sandbox, a deny-by-default policy layer, and a watchdog that kills the agent in about 430 ms. An automated OWASP red-team exam found a real bypass, which I contained, fixed and verified."
+tag: "AI Security"
+---
+
+## What it is
+
+AI agents don't just talk, they act: they read files, use tools and send data, and they can be tricked by instructions hidden in ordinary documents. Inspired by NVIDIA's Open Agent Safety Platform (OpenShell + Sentry), announced in September 2026, I built my own small version to answer one question: **what still holds when the model gets tricked?**
+
+The idea, taken from NVIDIA: don't trust the agent, control its environment.
+
+Everything ran on my own machine, against my own system, with fake data only. This is an independent learning project, not affiliated with NVIDIA.
+
+## How it works
+
+The agent (Claude, via the Anthropic API) can only *ask* for actions. Every request passes through four layers:
+
+1. **Docker sandbox:** the agent runs as a non-root user in a read-only container with no special powers. It only sees a fake workspace, read-only. I verified it can't see my real API key file or change any file.
+2. **Policy gateway (Open Policy Agent):** before any tool runs, a separate policy engine answers allow or deny. Nothing is allowed by default. If the policy engine is down, everything is denied (fail closed).
+3. **Audit log:** every decision is written down with the reason, so attacks become visible.
+4. **Sentry watchdog:** a separate program outside every container reads the log live. If the agent touches a honeytoken (a fake secret it should never ask for) or keeps trying forbidden actions, it kills the agent's container in **about 430 ms**.
+
+A Grafana dashboard (with Loki and Alloy) shows allowed and denied actions, kills and the average time to quarantine, all defined as code.
+
+## The red-team exam
+
+I attacked my own system with 13 automated promptfoo test cases mapped to the OWASP Top 10 for Agentic Applications: direct theft, fake authority, injections disguised as an IT memo, customer feedback and release notes, path tricks, attempts to read its own policy, and endless loops.
+
+- **Exam 1, policy only: 11/13.** A case-sensitivity bypass: the policy protected `secrets.env`, but `SECRETS.ENV` slipped through, and Windows opened the same file. The honeytoken leaked.
+- **Exam 2, with the watchdog: 13/13.** The policy made the same mistake, but the watchdog recognized the honeytoken and killed the agent before its answer reached the screen. Contained, not prevented: the file had still been read.
+- **Exam 3, fixed policy: 13/13.** One change, comparing names in lowercase, and the policy now denies every spelling itself.
+
+Find, contain, fix, verify.
+
+## After publishing
+
+A code review of my own repo found two more problems, both now fixed and covered by 18 policy unit tests that run on every push with GitHub Actions:
+
+- File names that weren't text (a number, a list, or no name) got **allow**, because no rule matched them.
+- The watchdog could crash on one broken log line and leave agents running unwatched (fail open).
+
+## What I learned
+
+- **Deny by default beats blocklists.** The one place I used a list of forbidden files is exactly where the bypass happened.
+- **Bugs live in the gaps between systems,** here between the policy and the file system.
+- **Prevention and detection are different jobs.** The policy stops actions before they happen; the watchdog can only limit damage afterwards.
+- **Silent resistance isn't security.** The model ignored every disguised injection, but never reported it. Without the log, nobody would know.
+- **Trust the log, not the agent.** When the policy was down, the model confidently invented a different reason for the denial.
+
+Full write-up with architecture diagram, results and screenshots: [github.com/feres-salhi/agentwarden](https://github.com/feres-salhi/agentwarden)

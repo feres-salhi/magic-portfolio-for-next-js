@@ -51,14 +51,14 @@ const home: Home = {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Mini SOC: Elastic SIEM + AI Triage</strong>{" "}
+        <strong className="ml-4">AgentWarden: AI Agent Containment</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
           Featured project
         </Text>
       </Row>
     ),
-    href: "/work/elastic-siem-ai-soc-automation",
+    href: "/work/agentwarden",
   },
   subline: (
     <>
@@ -147,7 +147,15 @@ const about: About = {
       {
         title: "AI security",
         description: (
-          <>Prompt injection, jailbreak testing and AI agent permission testing, from my AI Jailbreak Lab and AI Agent Permission Audit.</>
+          <>Prompt injection, jailbreak testing, AI agent permission testing, and agent containment and red-teaming against the OWASP Top 10 for Agentic Applications, from my AI Jailbreak Lab, AI Agent Permission Audit and AgentWarden.</>
+        ),
+        tags: [],
+        images: [],
+      },
+      {
+        title: "Security engineering (learning)",
+        description: (
+          <>Docker sandboxing and hardening, Open Policy Agent (Rego) with policy unit tests, Grafana / Loki dashboards as code, GitHub Actions and promptfoo, built hands-on in AgentWarden.</>
         ),
         tags: [],
         images: [],
