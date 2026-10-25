@@ -1,0 +1,57 @@
+---
+title: "ADS-B Spoofing Detector: Catching Fake Aircraft With a 27-Euro Radio"
+publishedAt: "2026-10-25"
+summary: "I captured live aircraft signals with a cheap software-defined radio, trained an ML model to recognise normal flight, then red-teamed it with synthetic spoofed aircraft. 100% detection and a 1.6% false-alarm rate on held-out data, and I stress-tested it until it broke to find out exactly why."
+tag: "AI Security"
+images:
+  - "/images/projects/adsb/cover-adsb-01.jpg"
+  - "/images/projects/adsb/cover-adsb-02.jpg"
+  - "/images/projects/adsb/cover-adsb-03.jpg"
+  - "/images/projects/adsb/cover-adsb-04.jpg"
+---
+
+## What it is
+
+Every aircraft constantly broadcasts its identity, position, speed and altitude over an open radio protocol called ADS-B, on 1090 MHz. Those broadcasts are unauthenticated and unencrypted: anyone with cheap hardware can forge them and inject "ghost" aircraft that were never there. It's a well-known, still-unsolved weakness in aviation.
+
+I wanted to see how far I could get against it on a student budget, so I bought a 27-euro RTL-SDR dongle, captured real air traffic over the Rhine-Main area, and built a machine-learning layer that flags when the data defies physics. Everything here runs end-to-end on data I captured myself. It's receive-only; every spoofing attack is simulated in software and never transmitted.
+
+## How it works
+
+The whole pipeline runs from a single receiver:
+
+1. **Capture:** the RTL-SDR dongle listens on 1090 MHz; `dump1090` decodes the raw bursts into ADS-B messages.
+2. **Build features:** messages are grouped into per-aircraft tracks, and each movement step is reduced to three physics-grounded numbers: ground speed (km/h), climb rate (ft/s) and step distance (km).
+3. **Train:** an Isolation Forest learns the shape of *normal* flight from the real data, unsupervised, so it needs no labelled attacks.
+4. **Attack:** synthetic spoofs (teleports, impossible speeds, altitude jumps) are generated in software and thrown at the detector.
+5. **Evaluate and harden:** performance is measured on held-out data, weaknesses are found by stress-testing, and the feature set is hardened.
+
+## Results
+
+On a held-out test set the model never saw during training:
+
+- **100% detection** of the synthetic attacks (310 of 310).
+- **1.6% false-alarm rate** on real flights (5 of 310).
+- **98.4% precision.**
+
+## The red-team catch
+
+The first version wrongly flagged a normal *climbing* aircraft. The cause was the altitude feature: it used the raw altitude change and ignored the time gap. Climbing 1,500 ft over 30 seconds is routine; over 3 seconds it's impossible, but the feature couldn't tell them apart. Switching to climb *rate* (ft/s) removed the false alarm while still catching every attack. Finding and fixing that is the whole point of red-teaming your own system.
+
+## Where it breaks
+
+I kept making the attacks subtler until the detector started to miss them, because knowing *why* a system breaks matters more than a clean 100%:
+
+- **Speed:** fakes below about 1,100 km/h, inside the range of real aircraft I observed, slip through; detection only becomes reliable above ~1,800 km/h.
+- **Altitude:** the detector is over-sensitive and flags even mild climbs, so it would false-alarm on real climbing and descending aircraft.
+
+Both trace back to the training data: my captures were dominated by high-altitude cruise traffic, so the model knows cruise speed well but rarely saw altitude changes. It's a data-coverage problem, not a model flaw.
+
+## What I learned
+
+- **Movement, not position, is what gives a spoof away.** Speed, climb rate and step distance encode physics a forger has to respect.
+- **Time context matters.** The same altitude change is normal or impossible depending on how long it took; the feature has to carry that.
+- **Breaking your own system is the real work.** A 100% headline number hid two genuine blind spots that only subtle, graduated attacks exposed.
+- **Your model is only as broad as your data.** Cruise-heavy captures produced a cruise-heavy detector.
+
+Full write-up with architecture diagram, results and the breaking-point analysis: [github.com/feres-salhi/adsb-security-lab](https://github.com/feres-salhi/adsb-security-lab)
