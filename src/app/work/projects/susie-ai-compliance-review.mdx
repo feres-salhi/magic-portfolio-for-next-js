@@ -1,0 +1,63 @@
+---
+title: "SÜSIE: Securing an AI Compliance Assistant in a 32-Hour Hackathon"
+publishedAt: "2026-10-27"
+summary: "At Futury Build Days 2026 (AI Edition, tech by hessian.AI), my team built an AI assistant for ITSG's legally required review of payroll software. I owned the security and trust layer: an input guard that stopped 14/14 attacks, quote-checked retrieval over 1,219 rulebook sections, a privacy airlock that leaked 0 of 224 planted personal values, and tamper-evident report receipts. 167 tests pass."
+tag: "Hackathon · AI Security"
+images:
+  - "/images/projects/susie/cover-02.jpg"
+  - "/images/projects/susie/certificate.jpg"
+  - "/images/projects/susie/cover-03.jpg"
+---
+
+## The challenge
+
+Under § 95b SGB IV, payroll software in Germany must pass ITSG's system review before it is allowed to send data to the social insurance institutions. The review is detailed, document-heavy work.
+
+At **Futury Build Days 2026 (AI Edition)**, a 32-hour hackathon by Futury, hessian.AI, MAINGAU and ITSG in Frankfurt, our team (Team 10) took on the ITSG challenge: build an AI assistant that supports this review for income replacement benefits (Entgeltersatzleistungen). Rules from the official specifications become checks, the software's output is compared against them, AI helps with the documents, and humans approve every step at recorded gates.
+
+All data is synthetic. This is a prototype, with no legal, compliance or certification claim.
+
+![SÜSIE architecture, by Team 10](/images/projects/susie/architecture.jpg)
+
+## My part: the security and trust layer
+
+An AI assistant in a compliance process is only useful if people can trust its output, and if personal data never leaks into an AI model. That was my job in the team. I built four components:
+
+1. **Deterministic checker with input guard.** Rule checks on the DTA EEL message flow, plus an allowlist guard that blocks unknown fields, invalid formats and broken input before anything else runs.
+2. **Verified retrieval.** The assistant searches 1,219 rulebook sections and must quote its sources. Every quote is checked word for word against the original; an answer that can't be proven becomes NEEDS_REVIEW for a human.
+3. **Datenschutz-Schleuse (privacy airlock).** Before any AI call, personal data (social insurance numbers, names, IBANs, emails, phone numbers, birth dates, addresses) is replaced with pseudonyms. If anything is left, the call is blocked. The same guard protects the tracing tool (Langfuse) and the AI agents.
+4. **Receipt office (seal).** Each report gets a SHA-256 fingerprint, an HMAC receipt and an entry in a hash-chained ledger. An edited report shows **TAMPERED**; a test run that was never handed in shows **NEVER SUBMITTED**.
+
+## Results
+
+Measured on the repository on 27 Oct 2026:
+
+- **167 passed:** security test suites (privacy, retrieval, seal, checker).
+- **14/14 stopped, 0 false alarms:** attack suite of 10 software bugs and 4 malicious inputs.
+- **0 of 224 leaked:** personal values planted in the privacy leak test.
+- **34 of 34 removed:** values in two independent privacy review sets.
+- **0 of 1,219:** rulebook sections wrongly flagged as personal data.
+- **GENUINE → TAMPERED → NEVER SUBMITTED:** the seal demo detects each case.
+
+![Seal demo: an edited report is flagged as TAMPERED](/images/projects/susie/cover-02.jpg)
+
+## A flaw I found and fixed
+
+The first run of the privacy leak test caught 18 of 19 planted values: **one leaked**. I fixed the detection and re-ran it. It now leaks 0 of 224 values, and 0 across 1,837 values in eight extra random test runs.
+
+## Honest limits
+
+- The seal proves a report wasn't changed after submission, not that the software's output was correct. ITSG's spot checks stay necessary.
+- Pattern-based privacy detection does not catch names in free text without a cue word such as "Herr" or "Name:". My leak test documents this: 10 such names planted, 10 not caught.
+- Pseudonymized data is still personal data under GDPR. This is engineering, not legal advice.
+
+## What I learned
+
+- **Trust needs proof, not promises.** An AI answer is only accepted when its quote can be found word for word in the rulebook.
+- **Privacy belongs in front of the model,** not behind it. Once data reaches an AI call or a log, it's too late.
+- **A test that fails is a good test.** The one leaked value was the most useful result of the weekend.
+- **Teamwork under time pressure** needs clear ownership and written handoffs, so nobody waits on a conversation they missed.
+
+![Certificate of Completion, Futury Build Days 2026](/images/projects/susie/certificate-full.jpg)
+
+Code, tests and how to run them: [github.com/feres-salhi/futury-itsg-review-assistant](https://github.com/feres-salhi/futury-itsg-review-assistant) (my portfolio copy of the team repository [gracelee087/futury_team_10](https://github.com/gracelee087/futury_team_10)).
