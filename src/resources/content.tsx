@@ -5,7 +5,7 @@ const person: Person = {
   firstName: "Fares",
   lastName: "Salhi",
   name: `Fares Salhi`,
-  role: "Computer Science Student · AI Security · Software Development",
+  role: "Computer Science Student · Cybersecurity · AI Security",
   avatar: "/images/avatar.jpg",
   email: "feressalhi425@gmail.com",
   location: "Europe/Berlin",
@@ -92,9 +92,9 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        I'm a third-semester computer science student at TU Darmstadt, looking for a working
-        student role in AI security, security engineering or software development. I learn by
-        building: I set up hands-on labs in my own accounts, attack my own systems, fix what
+        I'm a third-semester computer science student at TU Darmstadt, specializing in
+        cybersecurity and AI security: threat detection, security engineering and AI agent
+        security. I learn by building: I set up hands-on labs in my own accounts, attack my own systems, fix what
         breaks, and document every step, including what went wrong and where the limits are.
       </>
     ),
@@ -258,7 +258,7 @@ const about: About = {
         images: [],
       },
       {
-        title: "Software Development",
+        title: "Programming and Tools",
         description: (
           <>
             Python since high school, Java and C through university. Tested code with CI on every
