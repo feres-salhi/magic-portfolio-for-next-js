@@ -25,6 +25,8 @@ export type Person = {
   email: string;
   /** IANA time zone location */
   location: IANATimeZone;
+  /** Human-readable place shown on the site */
+  city?: string;
   /** Languages spoken */
   languages?: string[];
   /**
@@ -214,6 +216,44 @@ export interface About extends BasePageConfig {
         height: number;
       }>;
     }>;
+  };
+  /** Highlights: key numbers shown under the intro */
+  highlights?: {
+    display: boolean;
+    items: Array<{ value: string; label: string }>;
+  };
+  /** Competitions, hackathons and other participations */
+  participations?: {
+    display: boolean;
+    title: string;
+    items: Array<{
+      name: string;
+      timeframe: string;
+      role: string;
+      status?: string;
+      points: React.ReactNode[];
+      link?: { label: string; href: string };
+      internal?: boolean;
+      images?: Array<{ src: string; alt: string; width: number; height: number }>;
+    }>;
+  };
+  /** Certificates and courses */
+  certificates?: {
+    display: boolean;
+    title: string;
+    items: Array<{
+      name: string;
+      issuer: string;
+      date: string;
+      description?: React.ReactNode;
+      link?: { label: string; href: string };
+    }>;
+  };
+  /** Short lessons learned across projects */
+  lessons?: {
+    display: boolean;
+    title: string;
+    items: Array<{ title: string; description: React.ReactNode; source: string }>;
   };
 }
 

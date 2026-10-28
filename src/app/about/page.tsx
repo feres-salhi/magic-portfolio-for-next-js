@@ -45,9 +45,24 @@ export default function About() {
       items: about.studies.institutions.map((institution) => institution.name),
     },
     {
+      title: about.participations?.title ?? "",
+      display: !!about.participations?.display,
+      items: about.participations?.items.map((item) => item.name) ?? [],
+    },
+    {
       title: about.technical.title,
       display: about.technical.display,
       items: about.technical.skills.map((skill) => skill.title),
+    },
+    {
+      title: about.certificates?.title ?? "",
+      display: !!about.certificates?.display,
+      items: about.certificates?.items.map((item) => item.name) ?? [],
+    },
+    {
+      title: about.lessons?.title ?? "",
+      display: !!about.lessons?.display,
+      items: about.lessons?.items.map((item) => item.title) ?? [],
     },
   ];
   return (
@@ -96,7 +111,7 @@ export default function About() {
             <Avatar src={person.avatar} size="xl" />
             <Row gap="8" vertical="center">
               <Icon onBackground="accent-weak" name="globe" />
-              {person.location}
+              {person.city ?? person.location}
             </Row>
             {person.languages && person.languages.length > 0 && (
               <Row wrap gap="8">
@@ -202,6 +217,30 @@ export default function About() {
             </Column>
           )}
 
+          {about.highlights?.display && (
+            <Row fillWidth gap="12" wrap marginBottom="xl" s={{ horizontal: "center" }}>
+              {about.highlights.items.map((item) => (
+                <Column
+                  key={item.label}
+                  flex={1}
+                  minWidth={9}
+                  padding="16"
+                  radius="l"
+                  border="neutral-alpha-medium"
+                  background="neutral-alpha-weak"
+                  gap="4"
+                >
+                  <Text variant="display-strong-xs" onBackground="brand-strong">
+                    {item.value}
+                  </Text>
+                  <Text variant="body-default-s" onBackground="neutral-weak">
+                    {item.label}
+                  </Text>
+                </Column>
+              ))}
+            </Row>
+          )}
+
           {about.work.display && (
             <>
               <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
@@ -281,6 +320,78 @@ export default function About() {
             </>
           )}
 
+          {about.participations?.display && (
+            <>
+              <Heading
+                as="h2"
+                id={about.participations.title}
+                variant="display-strong-s"
+                marginBottom="m"
+              >
+                {about.participations.title}
+              </Heading>
+              <Column fillWidth gap="xl" marginBottom="40">
+                {about.participations.items.map((item, index) => (
+                  <Column key={`${item.name}-${index}`} fillWidth>
+                    <Row fillWidth horizontal="between" vertical="end" marginBottom="4" gap="12" wrap>
+                      <Text id={item.name} variant="heading-strong-l">
+                        {item.name}
+                      </Text>
+                      <Text variant="heading-default-xs" onBackground="neutral-weak">
+                        {item.timeframe}
+                      </Text>
+                    </Row>
+                    <Row gap="8" vertical="center" marginBottom="m" wrap>
+                      <Text variant="body-default-s" onBackground="brand-weak">
+                        {item.role}
+                      </Text>
+                      {item.status && <Tag size="s">{item.status}</Tag>}
+                    </Row>
+                    <Column as="ul" gap="12">
+                      {item.points.map((point, pointIndex) => (
+                        <Text as="li" variant="body-default-m" key={`${item.name}-p-${pointIndex}`}>
+                          {point}
+                        </Text>
+                      ))}
+                    </Column>
+                    {item.images && item.images.length > 0 && (
+                      <Row fillWidth paddingTop="m" gap="12" wrap>
+                        {item.images.map((image, imageIndex) => (
+                          <Row
+                            key={imageIndex}
+                            border="neutral-medium"
+                            radius="m"
+                            minWidth={image.width}
+                            height={image.height}
+                          >
+                            <Media
+                              enlarge
+                              radius="m"
+                              sizes={image.width.toString()}
+                              alt={image.alt}
+                              src={image.src}
+                            />
+                          </Row>
+                        ))}
+                      </Row>
+                    )}
+                    {item.link && (
+                      <Row paddingTop="m">
+                        <Button
+                          href={item.link.href}
+                          label={item.link.label}
+                          suffixIcon={item.internal ? "arrowRight" : "arrowUpRightFromSquare"}
+                          size="s"
+                          variant="secondary"
+                        />
+                      </Row>
+                    )}
+                  </Column>
+                ))}
+              </Column>
+            </>
+          )}
+
           {about.technical.display && (
             <>
               <Heading
@@ -330,6 +441,89 @@ export default function About() {
                         ))}
                       </Row>
                     )}
+                  </Column>
+                ))}
+              </Column>
+            </>
+          )}
+
+          {about.certificates?.display && (
+            <>
+              <Heading
+                as="h2"
+                id={about.certificates.title}
+                variant="display-strong-s"
+                marginTop="48"
+                marginBottom="m"
+              >
+                {about.certificates.title}
+              </Heading>
+              <Column fillWidth gap="l" marginBottom="40">
+                {about.certificates.items.map((item, index) => (
+                  <Column key={`${item.name}-${index}`} fillWidth gap="4">
+                    <Row fillWidth horizontal="between" vertical="end" gap="12" wrap>
+                      <Text id={item.name} variant="heading-strong-l">
+                        {item.name}
+                      </Text>
+                      <Text variant="heading-default-xs" onBackground="neutral-weak">
+                        {item.date}
+                      </Text>
+                    </Row>
+                    <Text variant="body-default-s" onBackground="brand-weak">
+                      {item.issuer}
+                    </Text>
+                    {item.description && (
+                      <Text variant="body-default-m" onBackground="neutral-weak">
+                        {item.description}
+                      </Text>
+                    )}
+                    {item.link && (
+                      <Row paddingTop="8">
+                        <Button
+                          href={item.link.href}
+                          label={item.link.label}
+                          suffixIcon="arrowUpRightFromSquare"
+                          size="s"
+                          variant="secondary"
+                        />
+                      </Row>
+                    )}
+                  </Column>
+                ))}
+              </Column>
+            </>
+          )}
+
+          {about.lessons?.display && (
+            <>
+              <Heading
+                as="h2"
+                id={about.lessons.title}
+                variant="display-strong-s"
+                marginBottom="m"
+              >
+                {about.lessons.title}
+              </Heading>
+              <Column fillWidth gap="l" marginBottom="40">
+                {about.lessons.items.map((item, index) => (
+                  <Column
+                    key={`${item.title}-${index}`}
+                    fillWidth
+                    gap="8"
+                    padding="20"
+                    radius="l"
+                    border="neutral-alpha-medium"
+                    background="neutral-alpha-weak"
+                  >
+                    <Text id={item.title} variant="heading-strong-m">
+                      {item.title}
+                    </Text>
+                    <Text variant="body-default-m" onBackground="neutral-weak">
+                      {item.description}
+                    </Text>
+                    <Text variant="label-default-s" onBackground="brand-weak">
+                      {item.source}
+                    </Text>
                   </Column>
                 ))}
               </Column>
