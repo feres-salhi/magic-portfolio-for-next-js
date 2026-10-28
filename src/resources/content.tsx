@@ -45,7 +45,7 @@ const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Home",
-  title: `${person.name} – AI Security Portfolio`,
+  title: `${person.name} – Cybersecurity & AI Security Portfolio`,
   description: `Portfolio of ${person.name}, computer science student at TU Darmstadt working in cybersecurity and AI security`,
   headline: <>Securing AI systems and the infrastructure behind them</>,
   featured: {
