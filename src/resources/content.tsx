@@ -43,7 +43,7 @@ const social: Social = [
 
 const home: Home = {
   path: "/",
-  image: "/images/og/fares-salhi-portfolio.jpg",
+  image: "/images/og/fares-salhi-portfolio-v2.jpg",
   label: "Home",
   title: `${person.name} – Cybersecurity & AI Security Portfolio`,
   description: `Portfolio of ${person.name}, computer science student at TU Darmstadt working in cybersecurity and AI security`,
@@ -102,7 +102,7 @@ const about: About = {
   highlights: {
     display: true,
     items: [
-      { value: "6", label: "security projects published on GitHub" },
+      { value: "14 / 14", label: "attacks stopped by my hackathon input guard" },
       { value: "0 / 224", label: "personal values leaked in my hackathon privacy test" },
       { value: "100%", label: "spoofed aircraft caught, 1.6% false alarms" },
       { value: "430 ms", label: "for my watchdog to stop a hijacked AI agent" },
