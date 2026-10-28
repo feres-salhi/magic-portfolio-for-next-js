@@ -46,8 +46,8 @@ const home: Home = {
   image: "/images/og/home.jpg",
   label: "Home",
   title: `${person.name} – AI Security Portfolio`,
-  description: `Portfolio of ${person.name}, computer science student at TU Darmstadt focused on AI security, security engineering and software development`,
-  headline: <>I build AI systems, then try to break them</>,
+  description: `Portfolio of ${person.name}, computer science student at TU Darmstadt working in cybersecurity and AI security`,
+  headline: <>Securing AI systems and the infrastructure behind them</>,
   featured: {
     display: true,
     title: (
@@ -63,9 +63,10 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm {person.firstName}, a computer science student at TU Darmstadt focused on AI security.
-      <br /> I test how AI agents and security systems fail, fix what I find, and document the
-      results with real numbers.
+      I'm {person.firstName}, a computer science student at TU Darmstadt working in cybersecurity
+      and AI security: threat detection and SIEM, system hardening and access control, data
+      protection, and red-teaming of AI agents.
+      <br /> Every project is tested, documented and backed by measurable results.
     </>
   ),
 };
@@ -184,22 +185,6 @@ const about: About = {
           <>Hands-on practice in the attack techniques I defend against in my own projects.</>,
         ],
         link: { label: "Gray Swan Arena", href: "https://app.grayswan.ai/arena" },
-      },
-      {
-        name: "Apart Research – Agent Attribution Hackathon",
-        timeframe: "27–29 Nov 2026 · Online",
-        role: "Registered participant",
-        status: "Upcoming",
-        points: [
-          <>
-            A research sprint on telling autonomous AI agents apart from human-steered ones. The
-            result will be a short research report and a public repo.
-          </>,
-        ],
-        link: {
-          label: "Event page",
-          href: "https://apartresearch.com/sprints/agent-attribution-2026",
-        },
       },
     ],
   },
