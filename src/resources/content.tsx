@@ -146,6 +146,31 @@ const about: About = {
     title: "Hackathons & Competitions",
     items: [
       {
+        name: "Hacker Contest WiSe 2026/27 – TU Darmstadt × usd AG",
+        timeframe: "10/2026 · Darmstadt",
+        role: "Selected participant · course led by pentest professionals of usd HeroLab",
+        status: "Admitted via entrance challenge",
+        points: [
+          <>
+            Places are limited and awarded through a solo entrance challenge. I qualified with a
+            forensic report on a tampered electronic passport (written in German).
+          </>,
+          <>
+            Worked through file-format and hidden-data analysis, XOR / one-time-pad decryption,
+            ICAO 9303 passport data and certificate checks, and a code review of the verification
+            tool: 16 vulnerabilities rated by severity, 6 proven with my own test scripts.
+          </>,
+          <>
+            Next: hands-on pentesting in the usd PentestLab and team-based vulnerability research
+            on open-source software with responsible disclosure.
+          </>,
+        ],
+        link: {
+          label: "About the Hacker Contest",
+          href: "https://www.cryptoplexity.informatik.tu-darmstadt.de/teaching_cryptoplexity/teaching/hacker_contest/index.de.jsp",
+        },
+      },
+      {
         name: "Futury Build Days 2026 – AI Edition",
         timeframe: "10/2026 · Frankfurt",
         role: "Team 10 · security and trust layer · by Futury, hessian.AI, MAINGAU and ITSG",
