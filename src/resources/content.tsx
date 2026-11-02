@@ -248,6 +248,8 @@ const about: About = {
           { name: "SHA-256 / HMAC" },
           { name: "Grafana" },
           { name: "Loki" },
+          { name: "SBOM (CycloneDX)" },
+          { name: "CISA KEV / OSV" },
         ],
         images: [],
       },

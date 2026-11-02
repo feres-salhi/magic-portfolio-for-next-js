@@ -1,0 +1,65 @@
+---
+title: "CRA Copilot: Meeting the EU 24-Hour Vulnerability Reporting Duty"
+image: "/images/projects/cra-copilot/cover-01.jpg"
+publishedAt: "2026-11-02"
+summary: "An open-source tool for the EU Cyber Resilience Act Article 14 early warning: it reads a product's SBOM, checks every component against OSV.dev and the CISA KEV list, flags possible report cases (it caught Log4Shell live in a demo product) and prepares a fact-checked German and English draft that a human must approve. It never sends anything. 1,450 tests pass; an AI pentest found 11 issues, all addressed."
+tag: "Product Security · AI Security"
+images:
+  - "/images/projects/cra-copilot/cover-01.jpg"
+  - "/images/projects/cra-copilot/cover-02.jpg"
+  - "/images/projects/cra-copilot/cover-03.jpg"
+  - "/images/projects/cra-copilot/cover-04.jpg"
+---
+
+## The problem
+
+Since **11 September 2026**, the EU Cyber Resilience Act (CRA, Article 14) requires manufacturers of connected products to send an **early warning within 24 hours** when a vulnerability in their product is actively exploited.
+
+For a small manufacturer that is hard. A product is built from many third-party software components, and someone has to watch vulnerability news every day, compare it with those components, and write a report on time.
+
+## What I built
+
+CRA Copilot is a Python command-line tool that does the watching and comparing with normal, testable code:
+
+1. **Reads the SBOM** (the product's software ingredient list, CycloneDX JSON) and treats it as possibly hostile: size, depth and count limits, strict characters. Anything unclear becomes **UNKNOWN**, never "safe".
+2. **Downloads public data** from OSV.dev and the CISA Known Exploited Vulnerabilities (KEV) list. A failed or partial download is reported as **RESULT INCOMPLETE**, never as "nothing found".
+3. **Matches** components to vulnerabilities (PyPI and Maven, versions never compared as text) and decides: affected, actively exploited, or unknown.
+4. **Drafts the early warning** in German and English. Code writes every fact; a fact checker rejects anything that is not in the data.
+5. **A human approves.** The human enters the awareness time, the tool computes the 24-hour deadline, and approval needs the case ID, "yes" and a name. There is no send function anywhere in the code.
+6. **Runs every 4 hours** through Windows Task Scheduler and shows a desktop alert when something new or urgent appears.
+
+All product data is fake (a fictional smart thermostat). This is a student project, not legal advice.
+
+## Results
+
+- **Live demo:** with real public data, the tool flagged **Log4Shell (CVE-2021-44228)** and **CVE-2021-45046** in `log4j-core 2.14.1` as possible report cases, both listed in CISA KEV, and marked a component without an identifier as UNKNOWN for a human.
+- **1,450 tests pass** (from 407 after the first two phases).
+- **Bandit:** 0 issues in 4,455 lines of code.
+- **Strix AI pentest** (v1.7.0, Claude Haiku 5.5, quick mode): **11 findings, 0 Critical, 0 High, 2 Medium, 9 Low**. All were addressed, each with a regression test written first. Two fixes are partial and documented.
+- **Automatic secret scan** (gitleaks in GitHub Actions) passes on the published repository.
+
+![Strix AI pentest: 11 findings, 2 Medium and 9 Low](/images/projects/cra-copilot/strix-findings.jpg)
+
+## Flaws found and fixed
+
+- **"No answer" treated as "all good."** Strix showed that a Log4j component written in an unusual spelling got no answer from OSV and looked clean. It is now UNKNOWN. A KEV list with exploited entries silently removed is now marked stale and incomplete.
+- **Free text cannot be fact-checked.** My first design let the AI write a summary paragraph and checked it with word lists. Reviewers beat both a forbidden-word list and an allowed-word list with sentences that were false but used only harmless words. The fix: the AI may only **choose** from a table of approved whole sentences, and the checker accepts them only word for word. If the AI fails, a fixed fallback text is used and the draft says so.
+- **My own test leaked my API key.** When the live AI test failed, the traceback printed the full API key. I rotated the key immediately. The key now travels inside a `Secret` object that always prints as `***`; 10 regression tests prove it, 7 of which fail on the old code.
+
+![10 regression tests prove the API key can no longer leak](/images/projects/cra-copilot/key-leak-fixed.jpg)
+
+## Honest limits
+
+- Whoever can write to the computer running the tool is trusted: run records are sealed with a fingerprint, not signed with a key.
+- The authenticity of the KEV download is not verified beyond HTTPS, and KEV is a floor, not a ceiling: it can lag behind and is US-focused.
+- Version 1 supports only PyPI and Maven components and CycloneDX JSON SBOMs.
+- The scheduled check runs only while the laptop is on and the user is logged in.
+- A human decides everything legal.
+
+## What I learned
+
+- **"I don't know" must never look like "safe".** Most findings shared this root cause.
+- **AI should help with wording, not decide facts.** Restricting the AI to approved sentences made the output trustworthy.
+- **Attack your own tool.** The AI pentest and my own live test found real problems that normal tests had missed.
+
+Code, tests, the full Strix report and the lab notes: [github.com/feres-salhi/cra-copilot](https://github.com/feres-salhi/cra-copilot)
