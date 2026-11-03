@@ -343,12 +343,6 @@ const about: About = {
         description: <>32-hour AI hackathon, ITSG challenge.</>,
         link: { label: "View certificate", href: "/images/projects/susie/certificate-full.jpg" },
       },
-      {
-        name: "The Cybersecurity Threat Landscape",
-        issuer: "LinkedIn Learning",
-        date: "11/2024",
-        description: <>Cybersecurity fundamentals and threat and vulnerability management.</>,
-      },
     ],
   },
   lessons: {
@@ -385,16 +379,6 @@ const about: About = {
         source: "ADS-B Spoofing Detector",
       },
       {
-        title: "Trust the log, not the agent",
-        description: (
-          <>
-            Models resist attacks silently and can confidently invent reasons. Without an audit
-            log, nobody would know what really happened.
-          </>
-        ),
-        source: "AgentWarden · AI Agent Permission Audit",
-      },
-      {
         title: "AI triage must stay advisory",
         description: (
           <>
@@ -403,11 +387,6 @@ const about: About = {
           </>
         ),
         source: "Mini SOC in the Cloud",
-      },
-      {
-        title: "Keyword filters don't stop prompt injection",
-        description: <>The attack that leaked the secret contained no suspicious word at all.</>,
-        source: "AI Jailbreak Lab",
       },
     ],
   },
