@@ -102,7 +102,6 @@ const about: About = {
   highlights: {
     display: true,
     items: [
-      { value: "14 / 14", label: "attacks stopped by my hackathon input guard" },
       { value: "0 / 224", label: "personal values leaked in my hackathon privacy test" },
       { value: "100%", label: "spoofed aircraft caught, 1.6% false alarms" },
       { value: "1,450", label: "passing tests in my CRA Copilot tool" },
