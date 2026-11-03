@@ -249,6 +249,27 @@ export interface About extends BasePageConfig {
       link?: { label: string; href: string };
     }>;
   };
+  /** Quick facts panel shown under the name (label/value pairs) */
+  facts?: {
+    display: boolean;
+    items: Array<{ label: string; value: string }>;
+  };
+  /** Compact project list on the About page */
+  projects?: {
+    display: boolean;
+    title: string;
+  };
+  /** Languages section */
+  languagesSection?: {
+    display: boolean;
+    title: string;
+  };
+  /** Downloadable CV */
+  cv?: {
+    display: boolean;
+    label: string;
+    href: string;
+  };
   /** Short lessons learned across projects */
   lessons?: {
     display: boolean;
