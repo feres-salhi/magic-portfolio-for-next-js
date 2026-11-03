@@ -52,14 +52,14 @@ const home: Home = {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">SÜSIE: Futury Build Days hackathon</strong>{" "}
+        <strong className="ml-4">CRA Copilot: EU Cyber Resilience Act tool</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
           Latest project
         </Text>
       </Row>
     ),
-    href: "/work/susie-ai-compliance-review",
+    href: "/work/cra-copilot",
   },
   subline: (
     <>
@@ -89,7 +89,7 @@ const about: About = {
   },
   intro: {
     display: true,
-    title: "Introduction",
+    title: "Profile",
     description: (
       <>
         I'm a third-semester computer science student at TU Darmstadt, specializing in
@@ -105,13 +105,60 @@ const about: About = {
       { value: "14 / 14", label: "attacks stopped by my hackathon input guard" },
       { value: "0 / 224", label: "personal values leaked in my hackathon privacy test" },
       { value: "100%", label: "spoofed aircraft caught, 1.6% false alarms" },
+      { value: "1,450", label: "passing tests in my CRA Copilot tool" },
       { value: "430 ms", label: "for my watchdog to stop a hijacked AI agent" },
     ],
   },
+  facts: {
+    display: true,
+    items: [
+      { label: "Studies", value: "B.Sc. Computer Science, TU Darmstadt (3rd semester)" },
+      { label: "Focus", value: "Cybersecurity · AI Security · Product Security" },
+      { label: "Currently", value: "Hacker Contest, usd AG × TU Darmstadt" },
+      { label: "Location", value: "Darmstadt, Germany" },
+      { label: "Languages", value: "German C1 · English C1 · French C1" },
+    ],
+  },
+  cv: {
+    display: true,
+    label: "Download CV (PDF)",
+    href: "/Fares_Salhi_CV.pdf",
+  },
+  projects: {
+    display: true,
+    title: "Projects",
+  },
+  languagesSection: {
+    display: true,
+    title: "Languages",
+  },
   work: {
-    display: false,
-    title: "Work Experience",
-    experiences: [],
+    display: true,
+    title: "Experience",
+    experiences: [
+      {
+        company: "Hacker Contest – usd AG × TU Darmstadt",
+        timeframe: "WiSe 2026/27 · Darmstadt",
+        role: "Participant · Penetration Testing (course led by the usd HeroLab pentest team)",
+        achievements: [
+          <>
+            Admitted through a solo entrance challenge (places are limited): a forensic report,
+            written in German, on a tampered electronic passport.
+          </>,
+          <>
+            Analysed file formats and hidden data, decrypted an XOR / one-time-pad message,
+            checked passport data and certificates against ICAO 9303, and reviewed the
+            verification code: 16 vulnerabilities rated by severity, 6 proven with my own test
+            scripts.
+          </>,
+          <>
+            This semester: hands-on pentesting in the usd PentestLab and team-based vulnerability
+            research on open-source software with responsible disclosure.
+          </>,
+        ],
+        images: [],
+      },
+    ],
   },
   studies: {
     display: true,
@@ -145,31 +192,6 @@ const about: About = {
     display: true,
     title: "Hackathons & Competitions",
     items: [
-      {
-        name: "Hacker Contest WiSe 2026/27 – TU Darmstadt × usd AG",
-        timeframe: "10/2026 · Darmstadt",
-        role: "Selected participant · course led by pentest professionals of usd HeroLab",
-        status: "Admitted via entrance challenge",
-        points: [
-          <>
-            Places are limited and awarded through a solo entrance challenge. I qualified with a
-            forensic report on a tampered electronic passport (written in German).
-          </>,
-          <>
-            Worked through file-format and hidden-data analysis, XOR / one-time-pad decryption,
-            ICAO 9303 passport data and certificate checks, and a code review of the verification
-            tool: 16 vulnerabilities rated by severity, 6 proven with my own test scripts.
-          </>,
-          <>
-            Next: hands-on pentesting in the usd PentestLab and team-based vulnerability research
-            on open-source software with responsible disclosure.
-          </>,
-        ],
-        link: {
-          label: "About the Hacker Contest",
-          href: "https://www.cryptoplexity.informatik.tu-darmstadt.de/teaching_cryptoplexity/teaching/hacker_contest/index.de.jsp",
-        },
-      },
       {
         name: "Futury Build Days 2026 – AI Edition",
         timeframe: "10/2026 · Frankfurt",
@@ -215,7 +237,7 @@ const about: About = {
   },
   technical: {
     display: true,
-    title: "Technical skills",
+    title: "Skills",
     skills: [
       {
         title: "AI Security",
@@ -332,7 +354,7 @@ const about: About = {
   },
   lessons: {
     display: true,
-    title: "What I've learned",
+    title: "Lessons learned",
     items: [
       {
         title: "Deny by default beats blocklists",

@@ -7,6 +7,7 @@ import styles from "./about.module.scss";
 interface TableOfContentsProps {
   structure: {
     title: string;
+    id?: string;
     display: boolean;
     items: string[];
   }[];
@@ -56,7 +57,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
               className={styles.hover}
               gap="8"
               vertical="center"
-              onClick={() => scrollTo(section.title, 80)}
+              onClick={() => scrollTo(section.id ?? section.title, 120)}
             >
               <Flex height="1" minWidth="16" background="neutral-strong"></Flex>
               <Text>{section.title}</Text>

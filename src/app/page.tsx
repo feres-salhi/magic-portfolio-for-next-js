@@ -10,6 +10,8 @@ import {
   Schema,
   Meta,
   Line,
+  Tag,
+  SmartLink,
 } from "@once-ui-system/core";
 import { home, about, person, baseURL, routes } from "@/resources";
 import { Mailchimp } from "@/components";
@@ -76,6 +78,7 @@ export default function Home() {
             </Text>
           </RevealFx>
           <RevealFx paddingTop="12" delay={0.4} horizontal="center" paddingLeft="12">
+            <Row gap="12" wrap horizontal="center">
             <Button
               id="about"
               data-border="rounded"
@@ -97,12 +100,71 @@ export default function Home() {
                 {about.title}
               </Row>
             </Button>
+            {about.cv?.display && (
+              <Button
+                data-border="rounded"
+                href={about.cv.href}
+                variant="primary"
+                size="m"
+                weight="default"
+                prefixIcon="document"
+                label={about.cv.label}
+              />
+            )}
+            </Row>
           </RevealFx>
         </Column>
       </Column>
-      <RevealFx translateY="16" delay={0.6}>
-        <Projects range={[1, 1]} />
-      </RevealFx>
+      {about.highlights?.display && (
+        <RevealFx translateY="12" delay={0.5} fillWidth>
+          <Row fillWidth gap="12" wrap paddingX="l" s={{ horizontal: "center" }}>
+            {about.highlights.items.map((item) => (
+              <Column
+                key={item.label}
+                flex={1}
+                minWidth={9}
+                padding="16"
+                radius="l"
+                border="neutral-alpha-medium"
+                background="neutral-alpha-weak"
+                gap="4"
+              >
+                <Text variant="display-strong-xs" onBackground="brand-strong">
+                  {item.value}
+                </Text>
+                <Text variant="body-default-s" onBackground="neutral-weak">
+                  {item.label}
+                </Text>
+              </Column>
+            ))}
+          </Row>
+        </RevealFx>
+      )}
+      <Row fillWidth wrap gap="8" horizontal="center" paddingX="l">
+        <Text variant="label-default-s" onBackground="neutral-weak" paddingRight="4">
+          Jump to:
+        </Text>
+        {[
+          ["Profile", "profile"],
+          ["Experience", "experience"],
+          ["Projects", "projects"],
+          ["Education", "education"],
+          ["Skills", "skills"],
+          ["Certificates", "certificates"],
+        ].map(([label, id]) => (
+          <SmartLink key={id} href={`${about.path}#${id}`}>
+            <Tag size="m">{label}</Tag>
+          </SmartLink>
+        ))}
+      </Row>
+      <Column fillWidth gap="m">
+        <Heading as="h2" variant="display-strong-xs" paddingX="l">
+          Latest project
+        </Heading>
+        <RevealFx translateY="16" delay={0.6}>
+          <Projects range={[1, 1]} />
+        </RevealFx>
+      </Column>
       {routes["/blog"] && (
         <Column fillWidth gap="24" marginBottom="l">
           <Row fillWidth paddingRight="64">
@@ -123,7 +185,12 @@ export default function Home() {
           </Row>
         </Column>
       )}
-      <Projects range={[2]} />
+      <Column fillWidth gap="m">
+        <Heading as="h2" variant="display-strong-xs" paddingX="l">
+          More projects
+        </Heading>
+        <Projects range={[2]} />
+      </Column>
       <Mailchimp />
     </Column>
   );
