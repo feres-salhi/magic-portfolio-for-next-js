@@ -193,7 +193,7 @@ const about: About = {
     items: [
       {
         name: "Futury Build Days 2026 – AI Edition",
-        timeframe: "10/2026 · Frankfurt",
+        timeframe: "Frankfurt",
         role: "Team 10 · security and trust layer · by Futury, hessian.AI, MAINGAU and ITSG",
         status: "Certificate of Completion",
         points: [
@@ -220,7 +220,7 @@ const about: About = {
       },
       {
         name: "Gray Swan Arena – AI Red-Teaming Competition",
-        timeframe: "10/2026 · Online",
+        timeframe: "Online",
         role: "Individual participant",
         points: [
           <>

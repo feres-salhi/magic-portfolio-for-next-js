@@ -37,11 +37,6 @@ const toId = (title: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-const monthYear = (date: string) => {
-  const d = new Date(`${date}T00:00:00`);
-  return `${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
-};
-
 const firstSentence = (text: string) => {
   const match = text.match(/^.*?[.!?](\s|$)/);
   return match ? match[0].trim() : text;
@@ -372,18 +367,9 @@ export default function About() {
                       border="neutral-alpha-weak"
                       background="neutral-alpha-weak"
                     >
-                      <Row fillWidth horizontal="between" gap="12" vertical="start">
-                        <Text variant="heading-strong-m" onBackground="neutral-strong">
-                          {project.metadata.title}
-                        </Text>
-                        <Text
-                          variant="label-default-s"
-                          onBackground="neutral-weak"
-                          style={{ whiteSpace: "nowrap" }}
-                        >
-                          {monthYear(project.metadata.publishedAt)}
-                        </Text>
-                      </Row>
+                      <Text variant="heading-strong-m" onBackground="neutral-strong">
+                        {project.metadata.title}
+                      </Text>
                       <Text variant="body-default-s" onBackground="neutral-weak">
                         {firstSentence(project.metadata.summary)}
                       </Text>
