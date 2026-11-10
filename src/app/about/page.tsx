@@ -16,7 +16,7 @@ import {
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
-import { getPosts } from "@/utils/utils";
+import { getPosts, sortProjects } from "@/utils/utils";
 import React from "react";
 
 export async function generateMetadata() {
@@ -59,9 +59,7 @@ function SectionHeading({ title, marginTop }: { title: string; marginTop?: "48" 
 }
 
 export default function About() {
-  const projects = getPosts(["src", "app", "work", "projects"]).sort(
-    (a, b) => new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime(),
-  );
+  const projects = sortProjects(getPosts(["src", "app", "work", "projects"]));
 
   // German CV order: profile, experience, projects, education, competitions, skills, certificates, languages
   const structure = [

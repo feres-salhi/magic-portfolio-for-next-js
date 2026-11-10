@@ -1,8 +1,9 @@
 ---
-title: "Mini SOC in the Cloud: Elastic SIEM + AI Alert Triage"
+title: "Mini SOC in the Cloud: Elastic SIEM, Detection Engineering and AI Alert Triage"
 image: "/images/projects/soc/cover-01.jpg"
 publishedAt: "2026-10-01"
-summary: "A Windows server on AWS monitored by Elastic SIEM/EDR, a custom MITRE-mapped detection rule, and automated alert triage: each alert is sent to Tines, summarized by AI, and emailed to the analyst."
+order: 2
+summary: "The core detection loop of a Security Operations Center: a Windows server on AWS, hardened before going online and monitored by Elastic SIEM/EDR, a custom KQL rule mapped to MITRE ATT&CK T1033, and automated triage where Tines sends each alert to an AI that summarizes it for the analyst. Testing showed why AI triage must stay advisory."
 tag: "Security Operations"
 images:
   - "/images/projects/soc/cover-01.jpg"
@@ -25,10 +26,10 @@ A small Security Operations Center (SOC) built in the cloud. A Windows Server 20
 
 Running `whoami` on the server produced an AI-written alert summary in my inbox within a few minutes, fully automatically. The summary named the correct host, user, time and MITRE technique, and suggested sensible next steps.
 
-## What I learned
+## Findings and what I learned
 
 - AWS resources are per region, and IP-restricted firewall rules need updating when your own IP changes.
-- One action can create two alerts (process start and end), so rules have to match how data is recorded.
-- Alert content can steer an AI: a "TEST" note in a fake alert made the AI call it benign. AI triage must stay advisory, and its input must be treated as untrusted.
+- One action created two alerts (process start and end). In a real SOC that is a tuning gap that drives alert fatigue, so rules have to match how data is recorded.
+- Alert content can steer an AI: a "TEST" note in a fake alert made the AI call it benign. AI triage must stay advisory: the AI has no tool access by design, its input is treated as untrusted, and the analyst decides.
 
 Full write-up with screenshots: [github.com/feres-salhi/elastic-siem-ai-soc-automation](https://github.com/feres-salhi/elastic-siem-ai-soc-automation)
