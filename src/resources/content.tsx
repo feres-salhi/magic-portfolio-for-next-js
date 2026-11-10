@@ -92,10 +92,12 @@ const about: About = {
     title: "Profile",
     description: (
       <>
-        I'm a third-semester computer science student at TU Darmstadt, specializing in
-        cybersecurity and AI security: threat detection, security engineering and AI agent
-        security. I learn by building: I set up hands-on labs in my own accounts, attack my own systems, fix what
-        breaks, and document every step, including what went wrong and where the limits are.
+        Computer science student (B.Sc., third semester) at TU Darmstadt with a focus on
+        security operations, security engineering and AI security. Hands-on experience in SIEM
+        monitoring and alert triage, vulnerability management under the EU Cyber Resilience Act,
+        and securing AI agents through containment and red-teaming. Currently in the usd AG × TU
+        Darmstadt Hacker Contest (penetration testing). All projects are public on GitHub with
+        tests, documented findings and known limits.
       </>
     ),
   },
@@ -103,8 +105,8 @@ const about: About = {
     display: true,
     items: [
       { value: "0 / 224", label: "personal values leaked in my hackathon privacy test" },
-      { value: "100%", label: "spoofed aircraft caught, 1.6% false alarms" },
       { value: "1,450", label: "passing tests in my CRA Copilot tool" },
+      { value: "11 / 11", label: "AI-pentest findings fixed in CRA Copilot" },
       { value: "430 ms", label: "for my watchdog to stop a hijacked AI agent" },
     ],
   },
@@ -112,7 +114,7 @@ const about: About = {
     display: true,
     items: [
       { label: "Studies", value: "B.Sc. Computer Science, TU Darmstadt (3rd semester)" },
-      { label: "Focus", value: "Cybersecurity · AI Security · Product Security" },
+      { label: "Focus", value: "Security Operations · Security Engineering · AI Security" },
       { label: "Currently", value: "Hacker Contest, usd AG × TU Darmstadt" },
       { label: "Location", value: "Darmstadt, Germany" },
       { label: "Languages", value: "German C1 · English C1 · French C1" },
@@ -256,6 +258,23 @@ const about: About = {
         images: [],
       },
       {
+        title: "Security Operations",
+        description: (
+          <>
+            A working mini SOC on AWS: a hardened endpoint monitored by EDR, a custom KQL detection
+            rule mapped to MITRE ATT&amp;CK, automated AI alert triage and alert tuning.
+          </>
+        ),
+        tags: [
+          { name: "Elastic Security (SIEM/EDR)" },
+          { name: "KQL" },
+          { name: "MITRE ATT&CK" },
+          { name: "Tines (SOAR)" },
+          { name: "AWS EC2" },
+        ],
+        images: [],
+      },
+      {
         title: "Security Engineering",
         description: (
           <>
@@ -271,32 +290,23 @@ const about: About = {
           { name: "Loki" },
           { name: "SBOM (CycloneDX)" },
           { name: "CISA KEV / OSV" },
-        ],
-        images: [],
-      },
-      {
-        title: "Security Operations",
-        description: (
-          <>
-            A working mini SOC on AWS: endpoint monitoring, a custom detection rule mapped to
-            MITRE ATT&amp;CK and automated AI alert triage.
-          </>
-        ),
-        tags: [
-          { name: "Elastic Security (SIEM/EDR)" },
-          { name: "KQL" },
-          { name: "MITRE ATT&CK" },
-          { name: "Tines (SOAR)" },
-          { name: "AWS EC2" },
+          { name: "SAST (Bandit)" },
+          { name: "AI-assisted pentesting (Strix)" },
         ],
         images: [],
       },
       {
         title: "Security Fundamentals",
         description: (
-          <>Risk assessment, security controls and frameworks, networking and GDPR basics.</>
+          <>
+            Risk assessment, security controls and frameworks, EU regulation, digital forensics
+            and secure code review.
+          </>
         ),
         tags: [
+          { name: "EU Cyber Resilience Act (Art. 14)" },
+          { name: "Digital forensics" },
+          { name: "Secure code review" },
           { name: "NIST CSF" },
           { name: "NIST RMF" },
           { name: "GDPR" },

@@ -13,6 +13,8 @@ type Metadata = {
   title: string;
   subtitle?: string;
   publishedAt: string;
+  /** Optional display position (1 = first). Projects without it come after, newest first. */
+  order?: number;
   summary: string;
   image?: string;
   images: string[];
@@ -43,6 +45,7 @@ function readMDXFile(filePath: string) {
     title: data.title || "",
     subtitle: data.subtitle || "",
     publishedAt: data.publishedAt,
+    order: typeof data.order === "number" ? data.order : undefined,
     summary: data.summary || "",
     image: data.image || "",
     images: data.images || [],
@@ -71,4 +74,14 @@ function getMDXData(dir: string) {
 export function getPosts(customPath = ["", "", "", ""]) {
   const postsDir = path.join(process.cwd(), ...customPath);
   return getMDXData(postsDir);
+}
+
+/** Sort projects by their "order" field first, then newest first. */
+export function sortProjects<T extends { metadata: Metadata }>(posts: T[]): T[] {
+  return [...posts].sort((a, b) => {
+    const oa = a.metadata.order ?? Number.POSITIVE_INFINITY;
+    const ob = b.metadata.order ?? Number.POSITIVE_INFINITY;
+    if (oa !== ob) return oa - ob;
+    return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
+  });
 }
