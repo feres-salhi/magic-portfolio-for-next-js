@@ -34,6 +34,12 @@ const social: Social = [
     essential: true,
   },
   {
+    name: "Instagram",
+    icon: "instagram",
+    link: "https://www.instagram.com/faresaisec",
+    essential: true,
+  },
+  {
     name: "Email",
     icon: "email",
     link: `mailto:${person.email}`,
