@@ -85,6 +85,11 @@ export default function About() {
       items: about.participations?.items.map((item) => item.name) ?? [],
     },
     {
+      title: about.outreach?.title ?? "",
+      display: !!about.outreach?.display,
+      items: [] as string[],
+    },
+    {
       title: about.technical.title,
       display: about.technical.display,
       items: about.technical.skills.map((skill) => skill.title),
@@ -458,6 +463,28 @@ export default function About() {
                     )}
                   </Column>
                 ))}
+              </Column>
+            </>
+          )}
+
+          {/* Teaching & Content */}
+          {about.outreach?.display && (
+            <>
+              <SectionHeading title={about.outreach.title} />
+              <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="l">
+                {about.outreach.description}
+                {about.outreach.link && (
+                  <Row>
+                    <Button
+                      href={about.outreach.link.href}
+                      label={about.outreach.link.label}
+                      prefixIcon="instagram"
+                      suffixIcon="arrowUpRightFromSquare"
+                      size="s"
+                      variant="secondary"
+                    />
+                  </Row>
+                )}
               </Column>
             </>
           )}
