@@ -242,6 +242,20 @@ const about: About = {
       },
     ],
   },
+  outreach: {
+    display: true,
+    title: "Teaching & Content",
+    description: (
+      <>
+        I run <strong>@faresaisec</strong> on Instagram, an educational page where I teach AI
+        security from the fundamentals and share what I learn in public as I build my projects.
+      </>
+    ),
+    link: {
+      label: "@faresaisec on Instagram",
+      href: "https://www.instagram.com/faresaisec",
+    },
+  },
   technical: {
     display: true,
     title: "Skills",

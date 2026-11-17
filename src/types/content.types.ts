@@ -276,6 +276,13 @@ export interface About extends BasePageConfig {
     title: string;
     items: Array<{ title: string; description: React.ReactNode; source: string }>;
   };
+  /** Teaching / content creation (e.g. an educational page) */
+  outreach?: {
+    display: boolean;
+    title: string;
+    description: React.ReactNode;
+    link?: { label: string; href: string };
+  };
 }
 
 /**
